@@ -18,19 +18,27 @@
 ## Description <a name="Description"></a>
 This project is completed as a part of [Udacity](https://www.udacity.com/) Data Engineering Nanodegree Program.
 
-The goal of the project is to design data warehouse for a fictitous music stream company, Sparkify and implement it in cloud service
+The goal of the project is to design data warehouse for a fictitous music stream company, Sparkify and implement it in AWS cloud service
 
 ### Introduction <a name="Introduction"></a>
-A startup called Sparkify wants to analyze song and user activity data on their new music streaming app and provide a personalised experience to the users. One of the examples would be building a music recommendation system based on user's preference like a favourite genre and/or artist. This will increase the quality of user experience and potentially reduce the churn rate. Additionally understanding the general trend of the music industry would be beneficial to the company in a way that the app service can provide the users additional recommendation according to the up-to-date music trend.   
+A startup called Sparkify wants to analyze song and user activity data on their new music streaming app and provide a personalised experience to the users. One of the examples would be building a music recommendation system based on user's preference like a favourite genre and/or artist. This will increase the quality of user experience and potentially reduce the customer churn rate. Additionally understanding the general trend of the music industry would be beneficial to the company in a way that the app service can provide the users additional recommendation according to the up-to-date music trend.   
 
 User's music preference information can be manually specified by users in their account. However, users may not provide their specific musical taste and furthermore, this information can be easily outdated. People move on and change their style and fondness and won't bother to update this information in their account. Also, it is not easy for the company to manually catch up on what is happening in the music industry. The better approach would be to figure out what users want and what is in a trend based on the user's behaviour. What users listen tells what users want and trend.
 
-Sparkify has been collecting on songs and user activity in their music streaming app, but currently, they don't have an easy way to query their data, which resides in AWS S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app. Sparkfiy needs to develop a database that is optimised for the user's song play analysis. The new database should provide analyst easy access to summary data with simple querries. For example, song play summary data by users, songs, artist, and play time should be easy to query. With such a database, Sparkify can find what songs are popular, who is the hottest singers now, who is listening to what, when, and where.
+Sparkify has been collecting songs and user activity data in their music streaming app, but currently, they don't have an easy way to query their data, which resides in AWS S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app. Sparkfiy needs to develop a database that is optimised for the user's song play analysis. The new database should provide analyst easy access to summary data with simple querries. For example, song play summary data by users, songs, artist, and play time should be easy to query. With such a database, Sparkify can find what songs are popular, who is the hottest singers now, who is listening to what, when, and where.
 
-As a data engineer, I created a database schema and ETL pipeline to optimize queries on song play analysis. Data is extracted from AWS S3, staged in AWS Redshift, and transformed into a set of dimensional tables and fact table.
+As a data engineer, I created a database schema and ETL pipeline to optimize queries on song play analysis. Data is extracted from AWS S3, staged in AWS Redshift, and transformed into a set of dimensional tables and fact table in AWS Redshift.
 
-<!-- ### Raw Data <a name="RawData"></a>
-This section describes the details of raw data set. The following subsections are directly copied from Udacity Data Engineering Nanodegree Program/2.Data Modeling/Project:Data Modeling with Postgres/2.Project Datasets
+### Raw Data <a name="RawData"></a>
+This section describes the details of raw data set which Sparkify has been collecting in their music streaming app. They currently resides in AWS S3. Here are the links for each:
+- Song data: ```s3://udacity-dend/song_data```
+- Log data: ```s3://udacity-dend/log_data```
+
+Log data json path: ```s3://udacity-dend/log_json_path.json```
+
+The following subsections are directly copied from Udacity Data Engineering Nanodegree Program/3. Cloud Data Warehouses/Project:Data Warehouse/2.Project Datasets
+
+
 #### Song Dataset
 The first dataset is a subset of real data from the [Million Song Dataset](http://millionsongdataset.com/). Each file is in JSON format and contains metadata about a song and the artist of that song. The files are partitioned by the first three letters of each song's track ID. For example, here are filepaths to two files in this dataset.
 
@@ -55,11 +63,6 @@ And below is an example of what the data in a log file, 2018-11-12-events.json, 
 
 ![Log_Dataset](Images_For_README/log_data_photo.png)
 
-If you would like to look at the JSON data within log_data files, you will need to create a pandas dataframe to read the data. Remember to first import JSON and pandas libraries.
-```
-df = pd.read_json(filepath, lines=True)
-```
-
 ## Schema Design <a name="SchemaDesign"></a>
 The new database is designed such that song play data can be easily analysed by song, user, artist, and time. One fact table and four dimension tables are designed as detailed below:
 
@@ -82,7 +85,7 @@ The new database is designed such that song play data can be easily analysed by 
  
 The primary keys of four dimension tables appear in the fact table as foreign keys. This allows analysts to join fact tables with dimension tables and to perform efficient queries.
 
-Data for songs and artists tables are extracted from song dataset. Data for time and users are extracted from log dataset. Finally, data for songplay table is extracted from songs table, artists table and log data set. During the extraction, if duplicated primary keys are detected in user data, user's first name, last name, and level overwrite the existing record. This reflects that user may change their first name, ast name or subscription level.
+During the ETL, row data is copied into the database as staging tables. Then, data for songs and artists tables are extracted from song dataset. Data for time and users are extracted from log dataset. Finally, data for songplay table is extracted from songs table, artists table and log data set. During the extraction, if duplicated primary keys are detected in user data, user's first name, last name, and level overwrite the existing record. This reflects that user may change their first name, ast name or subscription level.
 
 ## Getting Started <a name="gettingstarted"></a>
 ### File Description <a name="FileDescription"></a>
@@ -101,6 +104,7 @@ Data for songs and artists tables are extracted from song dataset. Data for time
 |- test.ipynb       # development test file. It can be used for testing while developing etl.ipynb 
 </pre>
 
+<!-- 
 ### Run Program <a name="RunProgram"></a>
 1. Run a local postgres sql server and create a new database for the project.
 2. Fill up the sql credential information in sql_credential.cfg.
