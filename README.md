@@ -90,18 +90,17 @@ During the ETL, row data is copied into the database as staging tables. Then, da
 ## Getting Started <a name="gettingstarted"></a>
 ### File Description <a name="FileDescription"></a>
 <pre>
-- Data-Modeling-with-Postgres
-|- data
-|   |- log_data     # It contains users log data
-|   |- song_data    # It contains song data
-|- Images_For_README    # It contains image files used in README
-|- create_tables.py # It drops and creates tables in the database. 
-|- etl.py           # It reads and processes song and log data and loads output data into the database.
-|- etl.ipynb        # development and test file for "create_tables.py" and "etl.py"
-|- README           # Readme file
-|- sql_credential.cfg   # It contains the sql database access credential. User is required to fill up before learning the program
-|- sql_queries.py   # It ontains sql queries, and is imported by "create_tables.py" and "etl.py"
-|- test.ipynb       # development test file. It can be used for testing while developing etl.ipynb 
+- Data-Warehouse
+|- Images_For_README    # Contain image files for README
+|- README               # Readme file
+|- dwh.cfg              # Contain the following ETL setups info including access credential
+|                           CLUSTER: Database location
+|                           IAM_ROLE: AWS ARN
+|                           S3: Low Data Location
+|                           AWS: AWS Access Details
+|- sql_queries.py       # Contains SQL queries which are imported by "create_tables.py" and "etl.py"
+|- create_tables.py     # It drops and creates tables in new database. 
+|- etl.py               # It stages, reads, and processes song and log data and loads output data into the fact and dimensional tables
 </pre>
 
 <!-- 
