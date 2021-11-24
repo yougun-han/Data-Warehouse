@@ -85,7 +85,7 @@ The new database is designed such that song play data can be easily analysed by 
  
 The primary keys of four dimension tables appear in the fact table as foreign keys. This allows analysts to join fact tables with dimension tables and to perform efficient queries.
 
-During the ETL, row data is copied into the database as staging tables. Then, data for songs and artists tables are extracted from song dataset. Data for time and users are extracted from log dataset. Finally, data for songplay table is extracted from songs table, artists table and log data set. During the extraction, if duplicated primary keys are detected in user data, user's first name, last name, and level overwrite the existing record. This reflects that user may change their first name, ast name or subscription level.
+During the ETL, row data is copied into the database as staging tables. Then, songs, artists, time, users, and songplay tables are created from staging tables.
 
 ## Getting Started <a name="gettingstarted"></a>
 ### File Description <a name="FileDescription"></a>
