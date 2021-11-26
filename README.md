@@ -93,6 +93,7 @@ During the ETL, row data is copied into the database as staging tables. Then, so
 - Data-Warehouse
 |- Images_For_README    # Contain image files for README
 |- README               # Readme file
+|- Developing.ipynb     # Jupyter file for developing python code. 
 |- dwh.cfg              # Contain the following ETL setups info including access credential
 |                           CLUSTER: Database location
 |                           IAM_ROLE: AWS ARN
