@@ -18,7 +18,7 @@
 ## Description <a name="Description"></a>
 This project is completed as a part of [Udacity](https://www.udacity.com/) Data Engineering Nanodegree Program.
 
-The goal of the project is to design data warehouse for a fictitous music stream company, Sparkify and implement it in AWS cloud service
+The goal of the project is to design data warehouse for a fictitous music stream company, Sparkify and implement it in AWS cloud service.
 
 ### Introduction <a name="Introduction"></a>
 A startup called Sparkify wants to analyze song and user activity data on their new music streaming app and provide a personalised experience to the users. One of the examples would be building a music recommendation system based on user's preference like a favourite genre and/or artist. This will increase the quality of user experience and potentially reduce the customer churn rate. Additionally understanding the general trend of the music industry would be beneficial to the company in a way that the app service can provide the users additional recommendation according to the up-to-date music trend.   
@@ -94,7 +94,7 @@ During the ETL, row data is copied into the database as staging tables. Then, so
 |- Images_For_README    # Contain image files for README
 |- README               # Readme file
 |- Developing.ipynb     # Jupyter file for developing python code. 
-|- dwh.cfg              # Contain the following ETL setups info including access credential
+|- dwh.cfg              # Contain the following ETL setup information including access credential
 |                           CLUSTER: Database location
 |                           IAM_ROLE: AWS ARN
 |                           S3: Low Data Location
@@ -104,29 +104,26 @@ During the ETL, row data is copied into the database as staging tables. Then, so
 |- etl.py               # It stages, reads, and processes song and log data and loads output data into the fact and dimensional tables
 </pre>
 
-<!-- 
 ### Run Program <a name="RunProgram"></a>
-1. Run a local postgres sql server and create a new database for the project.
-2. Fill up the sql credential information in sql_credential.cfg.
+**DISCLAIMER : There is a cost for using AWS service and you have to pay for it. The author is NOT responsible for any cost for using AWS service. Also you are responsible for data security in your AWS account and database.**
+1. Prerequisites 
+    - Create a user in AWS if you don't one available for your use.
+    - Start an AWS Redshift cluster if you don't have one available for your use. Make sure that Redshift allows public access for this practice (**Be aware of a potential data sercurity issue when doing so.**)
+    - Redshift is required to have a role that have an access to AWS S3 serivce.
+2. Set up the configuration file, dwh.cfg
+    - **Do NOT share your AWS crendetials (ARN, KEY, SECRET, DB_PASSWORD, etc) with other people. NEVER post these information in GIT.**
+    - Please note that the entire dataset is very large so the author limited data to those under **s3://udacity-dend/log_data/2018/11* and *s3://udacity-dend/song_data/A/A* 
 3. Run create_tables.py
 4. Run etl.py
+5. **AFTER RUNNING PROGRAM, MAKE SURE THAT YOU DELETE REDSHIFT CLUSTER IF YOU DON'T NEED ANYMORE. THERE IS A COST FOR MAINTAINING A REDSHIFT CLUSTER**
 
 
 ## Output <a  name="Output"></a>
-Five tables were created in the database after running the program. Below shows the first five rows for each table. Given that a fraction of entire dataset was given, songplays table has null values for most of song_id and artist_id columns
-### artists ###
-![artists](Images_For_README/table_artists.png)
-### songs ###
-![songs](Images_For_README/table_songs.png)
-### time ###
-![time](Images_For_README/table_time.png)
-### users ###
-![users](Images_For_README/table_users.png)
-### songplays ###
-![songplays](Images_For_README/table_songplays.png)
+Seven tables including two staging tables were created in the AWS Redshif after running the program.  Below is the screenshot of testing in the Redshift.
+![Output](Images_For_README/Ouptput.png)
 
 ## Author <a  name="Author"></a>
 Yougun Han
 
 ## Acknowledgements <a  name="Acknowledgements"></a>
-I would like to thank Udacity for designing the project. -->
+I would like to thank Udacity for designing the project.
